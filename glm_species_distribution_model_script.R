@@ -10,7 +10,7 @@
 setwd("your working directory")
 getwd()
 
-# Load data ()
+# Load data
 det.data <- read.csv("glm_species_distribution_model_covariates.csv", header=T)
 head(det.data)
 
@@ -67,7 +67,7 @@ dist <- unlist(nbdists(pts_kn1, xy))
 # We're only concerned with autocorrelation WITHIN sites, not among. Maybe max of within-site mean dist.?
 d_mn <- 2910.584 # mean distance between camera traps
 
-pts_kd_mn <- dnearneigh(xy, d1=0, d2= d_mn)  #d1 = starting distance; d2 is max distance to consider for spatial autocorrelation
+pts_kd_mn <- dnearneigh(xy, d1=0, d2=d_mn)  #d1 = starting distance; d2 is max distance to consider for spatial autocorrelation
 pts_kd_mn_w <- nb2listw(pts_kd_mn, zero.policy=TRUE)
 
 moran.test(z, pts_kd_mn_w, zero.policy=TRUE)
@@ -80,7 +80,7 @@ test <- glm(y.det ~ scale(AGRI_GYRATE_1KM) + scale(BARE_GYRATE_2KM) + scale(BLF_
 
 summary(test)
 
-lm.morantest(test, pts_kd_mn_w, zero.policy= T) 
+lm.morantest(test, pts_kd_mn_w, zero.policy=T) 
 
 ## lm doesn't work for the glmer mixed effects model
 #vars <- cbind(file$CF_CorrLength_Scale500.s,
@@ -91,7 +91,7 @@ lm.morantest(test, pts_kd_mn_w, zero.policy= T)
 #              file$CTI_SD_Scale8000.sq.s,
 #              file$TreesReclass_ED_Scale1000.s)
 
-#moran.test(vars, pts_kd_mn_w, zero.policy= TRUE)
+#moran.test(vars, pts_kd_mn_w, zero.policy=TRUE)
 #length(vars)
 #length(pts_kd_mn_w)
 
@@ -107,7 +107,7 @@ mod.aut <- glm(y.det ~scale(AGRI_GYRATE_1KM) + scale(BARE_GYRATE_2KM) + scale(BL
                  scale(effort) + aut, # autocovariate added here
                data= det.data, family=binomial(link="logit"), na.action="na.fail") 
 
-lm.morantest(mod.aut, pts_kd_mn_w, zero.policy= T)
+lm.morantest(mod.aut, pts_kd_mn_w, zero.policy=T)
 
 # New moran test with aut term included (it should correct for the SAC, if not, we need to test with different distance value and re-run it again)
 
@@ -178,7 +178,7 @@ plot(Bhutan, add=T)
 plot(sites, cex=0.4, col='grey20', add=T)
 
 # Save the raster output (you can do post processing in ArcGIS/QGIS with this output - very helpful for management)
-writeRaster(occ, "dhole_hab_new_jul19_SAC", format = "GTiff")
+writeRaster(occ, "dhole_hab_new_jul19_SAC", format="GTiff")
 
 ###############################################
 ########## Model prediction accuracy ##########
@@ -196,7 +196,7 @@ library(lattice)
 # Load model-averaged raster output (map) and coordinates
 mod <- occ
 df <- det.data
-coords <- df[,c(2,3)]
+coords <- df[, c(2, 3)]
 
 # Add new columns to the data frame with prediction values for each site and assign ID
 df$p <- extract(mod, coords)
@@ -208,7 +208,7 @@ names(data) <- c("id", "observed", "fitted")
 presence.absence.hist(data, legend.cex=1, N.bars=10, opt.legend.cex=0.6, opt.thresholds=T, opt.methods=c(1))
 
 accu1 <- presence.absence.accuracy(data, threshold=11, st.dev=F)
-accu1[,-c(1,2)] <- signif(accu1[,-c(1,2)],digits=2)
+accu1[,-c(1,2)] <- signif(accu1[,-c(1,2)], digits=2)
 accu1
 
 accu2 <- presence.absence.accuracy(data, threshold=0.5, st.dev=F)
