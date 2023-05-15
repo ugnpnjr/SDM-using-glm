@@ -46,7 +46,7 @@ plot(Correlog.mod, ylim=c(-0.35, 0.35), ylab="Correlation (Moran's I)", xlab="Di
 summary(Correlog.mod)
 print.default(Correlog.mod)
 
-# SAC test 
+# Spatial autocorrelation (SAC) test 
 library(spdep)
 
 # We need species presence points and coordinates
@@ -62,10 +62,10 @@ pts_kn1 <- knn2nb(knearneigh(xy, k=1))
 dist <- unlist(nbdists(pts_kn1, xy))
 
 ( d_mn <- mean(dist) )  # Mean distance between points
-( d_sd <- sd(dist) ) # standard deviation
+( d_sd <- sd(dist) )    # standard deviation
 
 # We're only concerned with autocorrelation WITHIN sites, not among. Maybe max of within-site mean dist.?
-d_mn <- 2910.584 # mean distance between camera traps
+d_mn <- 2910.584 # mean distance between camera traps in metres
 
 pts_kd_mn <- dnearneigh(xy, d1=0, d2=d_mn)  #d1 = starting distance; d2 is max distance to consider for spatial autocorrelation
 pts_kd_mn_w <- nb2listw(pts_kd_mn, zero.policy=TRUE)
@@ -73,7 +73,6 @@ pts_kd_mn_w <- nb2listw(pts_kd_mn, zero.policy=TRUE)
 moran.test(z, pts_kd_mn_w, zero.policy=TRUE)
 
 # Moran's I test to check SAC
-
 test <- glm(y.det ~ scale(AGRI_GYRATE_1KM) + scale(BARE_GYRATE_2KM) + scale(BLF_PD_32km) + scale(BUILTUP_GYR_4km) +scale(LC_GYRATE_1km) + 
               scale(LC_CWED_4km) + scale(TC_CL2_GYRATE_8km) + scale(rivFM_2KM) + scale(roaFM_1KM) + scale(sloposFM_4KM) + scale(effort), 
             data= det.data, family=binomial(link="logit"), na.action="na.fail") 
