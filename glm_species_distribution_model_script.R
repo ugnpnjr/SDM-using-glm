@@ -121,7 +121,7 @@ summary(mod.aut)
 
 library(MuMIn)
 # All possible combination of predictors
-options(na.action=na.fail)
+options(na.action=na.fail)  # to handle missing values
 
 (fm_dredge <- dredge(glob.mod, rank="AICc", trace=TRUE))
 
