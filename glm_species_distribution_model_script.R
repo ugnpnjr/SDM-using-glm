@@ -235,10 +235,7 @@ library(visreg)
 library(ggplot2)
 
 visreg(fit=glm.mod1, xvar="elevation",  # use the best model here in place of glm.mod1
-       gg=TRUE, 
-       scale="response") +
-  labs(y="Habitat use prob", 
-       x="Elevation (standardised)")
+       scale="response", xlab="Elevation (standardised)", ylab="Habitat use prob") 
 
 ###################################################################################################################
 ####################################################### END #######################################################
