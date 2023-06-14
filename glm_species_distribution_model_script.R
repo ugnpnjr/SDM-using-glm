@@ -234,7 +234,7 @@ maxkappa <- as.numeric(optimal.thresholds(data, opt.methods="MaxKappa"))
 library(visreg)
 library(ggplot2)
 
-visreg(fit=glm.mod1, xvar="elevation",  # use the best model here in place of glm.mod1
+visreg(fit=glm.mod1, xvar="elevation",  # use the best model in place of glm.mod1
        scale="response", xlab="Elevation (standardised)", ylab="Habitat use prob") 
 
 ###################################################################################################################
