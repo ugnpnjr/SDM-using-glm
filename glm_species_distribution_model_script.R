@@ -143,11 +143,11 @@ confint(avgmod.95p)
 
 # Load packages (if not installed, install from the repository)
 if(!require(raster)) install.packages('raster',repos="http://cran.us.r-project.org");require(raster)
-if(!require(rgdal)) install.packages('rgdal',repos="http://cran.us.r-project.org");require(rgdal)
+if(!require(rgdal)) install.packages('rgdal',repos="http://cran.us.r-project.org");require(rgdal) # This package retires in Oct 2023, move to terra/sp packages
 if(!require(sp)) install.packages('sp',repos="http://cran.us.r-project.org");require(sp)
-if(!require(rgeos)) install.packages('rgeos',repos="http://cran.us.r-project.org");require(rgeos)
+if(!require(rgeos)) install.packages('rgeos',repos="http://cran.us.r-project.org");require(rgeos) # This package retires in Oct 2023, move to terra/sp packages
 if(!require(maps)) install.packages('maps',repos="http://cran.us.r-project.org");require(maps)
-if(!require(GISTools)) install.packages('GISTools',repos="http://cran.us.r-project.org");require(GISTools)
+if(!require(GISTools)) install.packages('GISTools',repos="http://cran.us.r-project.org");require(GISTools) # This package retires in Oct 2023, move to terra/sp packages
 
 # Import standardised raster files (these are predictor raster files)
 ls() # I have packaged standardised raster files into an R data, so that they are all in one place.
